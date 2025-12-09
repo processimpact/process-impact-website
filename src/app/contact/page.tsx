@@ -12,7 +12,7 @@ export default function ContactPage() {
       <div className="mx-auto max-w-2xl text-center mb-12">
         <h1 className="text-4xl font-bold">Get in Touch</h1>
         <p className="mt-4 text-lg text-muted-foreground">
-          Ready to secure your industrial control systems? Let's talk.
+          Ready to assess your industrial control system security? Let's talk.
         </p>
       </div>
 

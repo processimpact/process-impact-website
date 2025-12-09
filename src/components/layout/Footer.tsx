@@ -24,11 +24,6 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/consulting" className="text-muted-foreground hover:text-primary transition-colors">
-                  Red Team Operations
-                </Link>
-              </li>
-              <li>
-                <Link href="/consulting" className="text-muted-foreground hover:text-primary transition-colors">
                   Security Assessments
                 </Link>
               </li>

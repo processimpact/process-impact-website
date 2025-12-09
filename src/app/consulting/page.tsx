@@ -9,12 +9,11 @@ export default function ConsultingPage() {
       <div className="mx-auto max-w-3xl">
         <h1 className="text-4xl font-bold text-center">Consulting Services</h1>
         <p className="mt-6 text-lg text-center text-muted-foreground">
-          Comprehensive ICS offensive security consulting.
+          Comprehensive ICS offensive security services.
         </p>
         <div className="mt-12 p-8 bg-brand-bg rounded-lg">
           <p className="text-center">
-            Content coming soon. We offer specialized penetration testing, red team operations, 
-            and security assessments for industrial control systems.
+            Content coming soon. We offer specialized penetration testing and security assessments for industrial control systems.
           </p>
         </div>
       </div>
