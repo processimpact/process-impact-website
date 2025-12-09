@@ -59,12 +59,15 @@ export function ContactForm() {
       });
 
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
+        const errorData = await response.json().catch(() => ({
+          error: `Server error: ${response.status}`
+        }));
         const message = errorData.error || `Server error: ${response.status}`;
         console.error("Form submission failed:", {
           status: response.status,
           statusText: response.statusText,
-          error: errorData,
+          error: errorData.error,
+          details: errorData.details,
         });
         throw new Error(message);
       }
