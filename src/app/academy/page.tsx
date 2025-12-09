@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Training Academy - Process Impact",
+  title: "Process Impact Academy - Process Impact",
   description: "LOTL security training courses for offensive security professionals.",
 };
 
@@ -7,9 +7,10 @@ export default function AcademyPage() {
   return (
     <div className="container py-24">
       <div className="mx-auto max-w-3xl">
-        <h1 className="text-4xl font-bold text-center">Axoltol Academy</h1>
+        <h1 className="text-4xl font-bold text-center">Process Impact Academy</h1>
         <p className="mt-6 text-lg text-center text-muted-foreground">
-          Offensive security training tuned for industrial control systems and focused on living-off-the-land techniques.
+          <b>Adversarial eXecution Operations: Living Off The Land (AXOLOTL).</b>
+          <br />Offensive security training tuned for industrial control systems and focused on living-off-the-land techniques.
         </p>
         <div className="mt-12 p-8 bg-brand-bg rounded-lg">
           <p className="text-center">

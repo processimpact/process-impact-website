@@ -40,7 +40,7 @@ export async function POST(request: Request) {
     const validatedData = contactSchema.parse(body);
 
     const { data, error } = await resend.emails.send({
-      from: "Process Impact <onboarding@resend.dev>",
+      from: "Process Impact <twebb@processimpact.io>",
       to: contactEmail,
       subject: `New Contact Form Submission - ${validatedData.service}`,
       html: `
