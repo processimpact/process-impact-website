@@ -6,7 +6,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import {
-  Form,
   FormControl,
   FormField,
   FormItem,
@@ -73,8 +72,7 @@ export function ContactForm() {
 
   return (
     <div className="mx-auto max-w-2xl">
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <FormField
             control={form.control}
             name="name"
@@ -185,8 +183,7 @@ export function ContactForm() {
               Something went wrong. Please try again or email us directly.
             </div>
           )}
-        </form>
-      </Form>
+      </form>
     </div>
   );
 }
