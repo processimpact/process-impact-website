@@ -30,6 +30,7 @@ type FormData = z.infer<typeof formSchema>;
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -46,6 +47,7 @@ export function ContactForm() {
   async function onSubmit(data: FormData) {
     setIsSubmitting(true);
     setSubmitStatus("idle");
+    setErrorMessage("");
 
     try {
       const response = await fetch("/api/contact", {
@@ -57,7 +59,14 @@ export function ContactForm() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to submit form");
+        const errorData = await response.json().catch(() => ({}));
+        const message = errorData.error || `Server error: ${response.status}`;
+        console.error("Form submission failed:", {
+          status: response.status,
+          statusText: response.statusText,
+          error: errorData,
+        });
+        throw new Error(message);
       }
 
       setSubmitStatus("success");
@@ -65,6 +74,7 @@ export function ContactForm() {
     } catch (error) {
       console.error("Form submission error:", error);
       setSubmitStatus("error");
+      setErrorMessage(error instanceof Error ? error.message : "An unexpected error occurred");
     } finally {
       setIsSubmitting(false);
     }
@@ -180,7 +190,8 @@ export function ContactForm() {
 
           {submitStatus === "error" && (
             <div className="rounded-md bg-red-50 p-4 text-sm text-red-800">
-              Something went wrong. Please try again or email us directly.
+              <p className="font-semibold">Error submitting form</p>
+              <p className="mt-1">{errorMessage || "Something went wrong. Please try again or email us directly."}</p>
             </div>
           )}
       </form>
