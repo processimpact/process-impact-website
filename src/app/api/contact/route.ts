@@ -15,9 +15,21 @@ const contactSchema = z.object({
 
 export async function POST(request: Request) {
   try {
+    // Check if Resend API key is configured
+    if (!process.env.RESEND_API_KEY || process.env.RESEND_API_KEY === "dummy_key_for_build") {
+      console.error("RESEND_API_KEY is not configured");
+      return NextResponse.json(
+        {
+          error: "Email service is not configured. Please contact us directly at contact@processimpact.io",
+          details: "RESEND_API_KEY environment variable is missing or invalid"
+        },
+        { status: 503 }
+      );
+    }
+
     const body = await request.json();
     const validatedData = contactSchema.parse(body);
-    
+
     const { data, error } = await resend.emails.send({
       from: "Process Impact <onboarding@resend.dev>",
       to: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "contact@processimpact.io",
@@ -35,9 +47,12 @@ export async function POST(request: Request) {
     });
 
     if (error) {
-      console.error("Resend error:", error);
+      console.error("Resend API error:", error);
       return NextResponse.json(
-        { error: "Failed to send email" },
+        {
+          error: "Failed to send email. Please try again or contact us directly.",
+          details: error.message || "Unknown error from email service"
+        },
         { status: 500 }
       );
     }
@@ -52,8 +67,12 @@ export async function POST(request: Request) {
     }
 
     console.error("Contact form error:", error);
+    const errorMessage = error instanceof Error ? error.message : "Unknown error";
     return NextResponse.json(
-      { error: "Internal server error" },
+      {
+        error: "Internal server error",
+        details: errorMessage
+      },
       { status: 500 }
     );
   }
