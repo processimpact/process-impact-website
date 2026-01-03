@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -19,8 +20,15 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <nav className="container flex h-16 items-center justify-between">
-        <Link href="/" className="flex items-center space-x-2">
-          <span className="text-xl font-bold text-primary">Process Impact</span>
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/images/Process_Impact_Logo_Embedded_Clear_BG.svg"
+            alt="Process Impact"
+            width={180}
+            height={90}
+            className="h-10 w-auto"
+            priority
+          />
         </Link>
 
         <div className="hidden md:flex md:gap-6">
