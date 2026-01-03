@@ -13,7 +13,7 @@ export function HeroSection() {
             alt="Process Impact"
             width={400}
             height={200}
-            className="h-20 w-auto md:h-24"
+            className="h-36 w-auto md:h-36"
             priority
           />
         </div>
@@ -21,7 +21,7 @@ export function HeroSection() {
           ICS/OT Offensive Security & Training
         </h1>
         <p className="mt-6 text-lg text-muted-foreground">
-          Expert penetration testing and red team operations for industrial control systems and critical infrastructure, 
+          Expert penetration testing and purple team exercises for industrial control systems and critical infrastructure, 
           plus cutting-edge live and hybrid-format offensive security training focused on modern ICS adversary techniques.
         </p>
         <div className="mt-10 flex items-center justify-center gap-4 flex-wrap">
