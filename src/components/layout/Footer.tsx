@@ -19,12 +19,17 @@ export function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/consulting" className="text-muted-foreground hover:text-primary transition-colors">
-                  Penetration Testing
+                  Network Penetration Testing
                 </Link>
               </li>
               <li>
                 <Link href="/consulting" className="text-muted-foreground hover:text-primary transition-colors">
-                  Security Assessments
+                  Device Penetration Testing
+                </Link>
+              </li>
+              <li>
+                <Link href="/consulting" className="text-muted-foreground hover:text-primary transition-colors">
+                  Purple Team Exercises
                 </Link>
               </li>
             </ul>

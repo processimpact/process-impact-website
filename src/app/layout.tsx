@@ -4,8 +4,8 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
-  title: "Process Impact - ICS Offensive Security & Training",
-  description: "Expert ICS penetration testing, red team operations, and LOTL security training for critical infrastructure.",
+  title: "Process Impact - ICS/OT Offensive Security & Training",
+  description: "Expert ICS/OT network penetration testing, device pentesting, purple team exercises, and LOTL security training for critical infrastructure.",
   keywords: ["ICS security", "OT security", "penetration testing", "LOTL training", "industrial cybersecurity"],
 };
 

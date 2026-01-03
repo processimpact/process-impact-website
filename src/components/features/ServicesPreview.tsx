@@ -1,23 +1,23 @@
 import Link from "next/link";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Shield, Target, FileSearch } from "lucide-react";
+import { Shield, Target, FileSearch, HardDrive, ShieldHalf } from "lucide-react";
 
 export function ServicesPreview() {
   const services = [
     {
-      title: "ICS Penetration Testing",
-      description: "Comprehensive security assessments of industrial control systems and SCADA environments.",
-      icon: Shield,
-    },
-    {
-      title: "Red Team Operations",
-      description: "Realistic adversary simulation to test your organization's detection and response capabilities.",
+      title: "ICS/OT Network Penetration Testing",
+      description: "Adversary-informed, process-centric network penetration testing tailored for industrial control systems.",
       icon: Target,
     },
     {
-      title: "Security Assessments",
-      description: "In-depth evaluation of your ICS security posture and compliance requirements.",
-      icon: FileSearch,
+      title: "ICS/OT Device Penetration Testing",
+      description: "Bench testing of industrial devices and protocols to identify hardware and software vulnerabilities.",
+      icon: HardDrive,
+    },
+    {
+      title: "ICS/OT Purple Team Exercises",
+      description: "Realistic adversary simulation to test and tune your organization's detection and response capabilities.",
+      icon: ShieldHalf,
     },
   ];
 
@@ -26,7 +26,7 @@ export function ServicesPreview() {
       <div className="text-center mb-12">
         <h2 className="text-3xl font-bold">Consulting Services</h2>
         <p className="mt-4 text-muted-foreground">
-          Specialized offensive security for critical infrastructure
+          Specialized offensive security assessments for industrial control systems and critical infrastructure.
         </p>
       </div>
 
