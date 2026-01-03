@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
@@ -6,6 +7,16 @@ export function HeroSection() {
   return (
     <section className="container py-24 md:py-32">
       <div className="mx-auto max-w-3xl text-center">
+        <div className="mb-8 flex justify-center">
+          <Image
+            src="/images/Process_Impact_Logo_Embedded_Clear_BG.svg"
+            alt="Process Impact"
+            width={400}
+            height={200}
+            className="h-20 w-auto md:h-24"
+            priority
+          />
+        </div>
         <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
           ICS/OT Offensive Security & Training
         </h1>
