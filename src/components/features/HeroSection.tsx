@@ -13,7 +13,7 @@ export function HeroSection() {
             alt="Process Impact"
             width={400}
             height={200}
-            className="h-20 w-auto md:h-24"
+            className="h-24 w-auto md:h-32"
             priority
           />
         </div>
