@@ -11,8 +11,7 @@ export function Header() {
 
   const navigation = [
     { name: "Services", href: "/services" },
-    { name: "Training", href: "/academy" },
-    { name: "Blog", href: "/blog" },
+    { name: "Resources", href: "/resources" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
   ];
@@ -45,7 +44,7 @@ export function Header() {
 
         <div className="hidden md:flex">
           <Button asChild>
-            <Link href="/contact">Get Started</Link>
+            <Link href="/contact">Contact Us</Link>
           </Button>
         </div>
 
@@ -76,7 +75,7 @@ export function Header() {
               </Link>
             ))}
             <Button asChild className="w-full mt-4">
-              <Link href="/contact">Get Started</Link>
+              <Link href="/contact">Contact Us</Link>
             </Button>
           </div>
         </div>

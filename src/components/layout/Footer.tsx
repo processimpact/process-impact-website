@@ -18,18 +18,23 @@ export function Footer() {
             <h4 className="text-sm font-semibold">Services</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/consulting" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link href="/services/network-penetration-testing" className="text-muted-foreground hover:text-primary transition-colors">
                   Network Penetration Testing
                 </Link>
               </li>
               <li>
-                <Link href="/consulting" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link href="/services/device-penetration-testing" className="text-muted-foreground hover:text-primary transition-colors">
                   Device Penetration Testing
                 </Link>
               </li>
               <li>
-                <Link href="/consulting" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link href="/services/purple-team-exercises" className="text-muted-foreground hover:text-primary transition-colors">
                   Purple Team Exercises
+                </Link>
+              </li>
+              <li>
+                <Link href="/academy" className="text-muted-foreground hover:text-primary transition-colors">
+                  Training
                 </Link>
               </li>
             </ul>
@@ -44,8 +49,8 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="text-muted-foreground hover:text-primary transition-colors">
-                  Blog
+                <Link href="/resources" className="text-muted-foreground hover:text-primary transition-colors">
+                  Resources
                 </Link>
               </li>
               <li>
