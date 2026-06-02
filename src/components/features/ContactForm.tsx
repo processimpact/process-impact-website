@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useForm, ControllerRenderProps } from "react-hook-form";
+import { useForm, ControllerRenderProps, ControllerFieldState } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
@@ -86,117 +86,117 @@ export function ContactForm() {
   return (
     <div className="mx-auto max-w-2xl">
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field, fieldState }: { field: ControllerRenderProps<FormData, "name">; fieldState: ControllerFieldState }) => (
+            <FormItem>
+              <FormLabel>Name *</FormLabel>
+              <FormControl>
+                <Input placeholder="John Doe" {...field} />
+              </FormControl>
+              <FormMessage>{fieldState.error?.message}</FormMessage>
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field, fieldState }: { field: ControllerRenderProps<FormData, "email">; fieldState: ControllerFieldState }) => (
+            <FormItem>
+              <FormLabel>Email *</FormLabel>
+              <FormControl>
+                <Input type="email" placeholder="john@example.com" {...field} />
+              </FormControl>
+              <FormMessage>{fieldState.error?.message}</FormMessage>
+            </FormItem>
+          )}
+        />
+
+        <div className="grid gap-6 md:grid-cols-2">
           <FormField
             control={form.control}
-            name="name"
-            render={({ field }: { field: ControllerRenderProps<FormData, "name"> }) => (
+            name="phone"
+            render={({ field, fieldState }: { field: ControllerRenderProps<FormData, "phone">; fieldState: ControllerFieldState }) => (
               <FormItem>
-                <FormLabel>Name *</FormLabel>
+                <FormLabel>Phone</FormLabel>
                 <FormControl>
-                  <Input placeholder="John Doe" {...field} />
+                  <Input placeholder="(555) 123-4567" {...field} />
                 </FormControl>
-                <FormMessage />
+                <FormMessage>{fieldState.error?.message}</FormMessage>
               </FormItem>
             )}
           />
 
           <FormField
             control={form.control}
-            name="email"
-            render={({ field }: { field: ControllerRenderProps<FormData, "email"> }) => (
+            name="company"
+            render={({ field, fieldState }: { field: ControllerRenderProps<FormData, "company">; fieldState: ControllerFieldState }) => (
               <FormItem>
-                <FormLabel>Email *</FormLabel>
+                <FormLabel>Company</FormLabel>
                 <FormControl>
-                  <Input type="email" placeholder="john@example.com" {...field} />
+                  <Input placeholder="Acme Corp" {...field} />
                 </FormControl>
-                <FormMessage />
+                <FormMessage>{fieldState.error?.message}</FormMessage>
               </FormItem>
             )}
           />
+        </div>
 
-          <div className="grid gap-6 md:grid-cols-2">
-            <FormField
-              control={form.control}
-              name="phone"
-              render={({ field }: { field: ControllerRenderProps<FormData, "phone"> }) => (
-                <FormItem>
-                  <FormLabel>Phone</FormLabel>
-                  <FormControl>
-                    <Input placeholder="(555) 123-4567" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+        <FormField
+          control={form.control}
+          name="service"
+          render={({ field, fieldState }: { field: ControllerRenderProps<FormData, "service">; fieldState: ControllerFieldState }) => (
+            <FormItem>
+              <FormLabel>Service Interest *</FormLabel>
+              <FormControl>
+                <Select {...field}>
+                  <option value="consulting">Consulting</option>
+                  <option value="training">Training</option>
+                  <option value="both">Both</option>
+                  <option value="other">Other</option>
+                </Select>
+              </FormControl>
+              <FormMessage>{fieldState.error?.message}</FormMessage>
+            </FormItem>
+          )}
+        />
 
-            <FormField
-              control={form.control}
-              name="company"
-              render={({ field }: { field: ControllerRenderProps<FormData, "company"> }) => (
-                <FormItem>
-                  <FormLabel>Company</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Acme Corp" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+        <FormField
+          control={form.control}
+          name="message"
+          render={({ field, fieldState }: { field: ControllerRenderProps<FormData, "message">; fieldState: ControllerFieldState }) => (
+            <FormItem>
+              <FormLabel>Message *</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Tell us about your project or questions..."
+                  className="min-h-32"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage>{fieldState.error?.message}</FormMessage>
+            </FormItem>
+          )}
+        />
+
+        <Button type="submit" disabled={isSubmitting} className="w-full">
+          {isSubmitting ? "Sending..." : "Send Message"}
+        </Button>
+
+        {submitStatus === "success" && (
+          <div className="rounded-md bg-green-50 p-4 text-sm text-green-800">
+            Thank you! We'll get back to you soon.
           </div>
+        )}
 
-          <FormField
-            control={form.control}
-            name="service"
-            render={({ field }: { field: ControllerRenderProps<FormData, "service"> }) => (
-              <FormItem>
-                <FormLabel>Service Interest *</FormLabel>
-                <FormControl>
-                  <Select {...field}>
-                    <option value="consulting">Consulting</option>
-                    <option value="training">Training</option>
-                    <option value="both">Both</option>
-                    <option value="other">Other</option>
-                  </Select>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="message"
-            render={({ field }: { field: ControllerRenderProps<FormData, "message"> }) => (
-              <FormItem>
-                <FormLabel>Message *</FormLabel>
-                <FormControl>
-                  <Textarea
-                    placeholder="Tell us about your project or questions..."
-                    className="min-h-32"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <Button type="submit" disabled={isSubmitting} className="w-full">
-            {isSubmitting ? "Sending..." : "Send Message"}
-          </Button>
-
-          {submitStatus === "success" && (
-            <div className="rounded-md bg-green-50 p-4 text-sm text-green-800">
-              Thank you! We'll get back to you soon.
-            </div>
-          )}
-
-          {submitStatus === "error" && (
-            <div className="rounded-md bg-red-50 p-4 text-sm text-red-800">
-              <p className="font-semibold">Error submitting form</p>
-              <p className="mt-1">{errorMessage || "Something went wrong. Please try again or email us directly."}</p>
-            </div>
-          )}
+        {submitStatus === "error" && (
+          <div className="rounded-md bg-red-50 p-4 text-sm text-red-800">
+            <p className="font-semibold">Error submitting form</p>
+            <p className="mt-1">{errorMessage || "Something went wrong. Please try again or email us directly."}</p>
+          </div>
+        )}
       </form>
     </div>
   );
