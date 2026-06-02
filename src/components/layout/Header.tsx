@@ -44,7 +44,7 @@ export function Header() {
 
         <div className="hidden md:flex">
           <Button asChild>
-            <Link href="/contact">Get Started</Link>
+            <Link href="/contact">Contact Us</Link>
           </Button>
         </div>
 
@@ -75,7 +75,7 @@ export function Header() {
               </Link>
             ))}
             <Button asChild className="w-full mt-4">
-              <Link href="/contact">Get Started</Link>
+              <Link href="/contact">Contact Us</Link>
             </Button>
           </div>
         </div>

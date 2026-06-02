@@ -26,7 +26,7 @@ export function HeroSection() {
         </p>
         <div className="mt-10 flex items-center justify-center gap-4 flex-wrap">
           <Button size="lg" asChild>
-            <Link href="/services">
+            <Link href="/services" className="inline-flex items-center">
               Explore Our Services
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
