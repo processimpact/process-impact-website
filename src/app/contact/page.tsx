@@ -11,7 +11,7 @@ export default function ContactPage() {
   return (
     <div className="container py-24">
       <div className="mx-auto max-w-2xl text-center mb-12">
-        <h1 className="text-4xl font-bold">Get in Touch</h1>
+        <h1 className="text-4xl font-bold">Contact Us</h1>
         <p className="mt-4 text-lg text-muted-foreground">
           Ready to assess your industrial control system security, or train your team? Let's talk.
         </p>

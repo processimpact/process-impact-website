@@ -26,22 +26,23 @@ export async function POST(request: Request) {
       console.error("RESEND_API_KEY is not configured");
       return NextResponse.json(
         {
-          error: "Email service is not configured. Please contact us directly at twebb@processimpact.io",
+          error: "Email service is not configured. Please contact us directly at contact@processimpact.io",
           details: "RESEND_API_KEY environment variable is missing or invalid"
         },
         { status: 503 }
       );
     }
 
-    // Validate contact email is configured
-    const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "twebb@processimpact.io";
+    const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "contact@processimpact.io";
+    const fromEmail = process.env.RESEND_FROM_EMAIL || "contact@processimpact.io";
 
     const body = await request.json();
     const validatedData = contactSchema.parse(body);
 
     const { data, error } = await resend.emails.send({
-      from: "Process Impact <twebb@processimpact.io>",
+      from: `Process Impact <${fromEmail}>`,
       to: contactEmail,
+      replyTo: validatedData.email,
       subject: `New Contact Form Submission - ${validatedData.service}`,
       html: `
         <h2>New Contact Form Submission</h2>
@@ -63,7 +64,7 @@ export async function POST(request: Request) {
       });
       return NextResponse.json(
         {
-          error: "Failed to send email. Please try again or contact us directly at twebb@processimpact.io",
+          error: "Failed to send email. Please try again or contact us directly at contact@processimpact.io",
           details: error.message || "Unknown error from email service"
         },
         { status: 500 }
