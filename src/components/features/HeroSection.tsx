@@ -27,11 +27,9 @@ export function HeroSection() {
         <div className="mt-10 flex items-center justify-center gap-4 flex-wrap">
           <Button size="lg" asChild>
             <Link href="/services">
-              Consulting Services
+              Explore Our Services
+              <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
-          </Button>
-          <Button size="lg" variant="outline" asChild>
-            <Link href="/academy">Training Academy</Link>
           </Button>
         </div>
       </div>

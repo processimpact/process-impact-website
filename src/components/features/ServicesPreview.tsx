@@ -43,8 +43,8 @@ export function ServicesPreview() {
       </div>
 
       <div className="text-center mt-12">
-        <Link 
-          href="/consulting"
+        <Link
+          href="/services"
           className="text-primary hover:underline font-medium"
         >
           View all services →
