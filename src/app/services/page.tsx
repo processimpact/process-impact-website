@@ -10,22 +10,25 @@ export const metadata = {
 const services = [
   {
     title: "ICS/OT Network Penetration Testing",
-    description: "Adversary-informed, process-centric network penetration testing tailored for industrial control systems.",
+    description: "Adversary-informed, cyber-physical focused network penetration testing tailored for industrial control systems.",
     icon: Target,
+    href: "/services/network-penetration-testing",
   },
   {
     title: "ICS/OT Device Penetration Testing",
     description: "Bench testing of industrial devices and protocols to identify hardware and software vulnerabilities.",
     icon: HardDrive,
+    href: "/services/device-penetration-testing",
   },
   {
     title: "ICS/OT Purple Team Exercises",
     description: "Realistic adversary simulation to test and tune your organization's detection and response capabilities.",
     icon: ShieldHalf,
+    href: "/services/purple-team-exercises",
   },
   {
     title: "Training",
-    description: "AXOLOTL — live and hybrid-format offensive security training tuned for safe ICS/OT assessments and focused on modern adversary techniques.",
+    description: "Live and hybrid-format offensive security training tuned for safe ICS/OT assessments and focused on modern adversary techniques.",
     icon: GraduationCap,
     href: "/academy",
   },

@@ -32,12 +32,12 @@ export default function AboutPage() {
             We don&apos;t run IT penetration tests in OT environments. Every technique we use is drawn from real-world adversary activity, every target is chosen around the industrial process, and every finding is something an ICS/OT operator can actually act on.
           </p>
           <p className="mt-4 text-left">
-            Offense, done right, makes industrial environments safer — and we do it safely.
+            Offense, done right, makes industrial environments safer, and we do it safely.
           </p>
         </div>
 
         <p className="mt-8 text-lg text-center text-muted-foreground">
-          Network and device penetration testing, purple team exercises, and specialized training — built specifically for industrial control systems and critical infrastructure.
+          Network and device penetration testing, purple team exercises, and specialized training, all built specifically for industrial control systems and critical infrastructure.
         </p>
       </div>
     </div>
