@@ -32,7 +32,7 @@ export default function AboutPage() {
             We don&apos;t just run IT penetration tests in OT environments. Every technique we use is drawn from real-world OT adversary activity, every target is chosen around the industrial process, and every finding is something an ICS/OT operator can actually act on.
           </p>
           <p className="mt-4 text-left">
-            Offense, done right, makes industrial environments safer, and we do it safely.
+            Offense done right makes industrial environments secure, and we do it safely.
           </p>
         </div>
 
