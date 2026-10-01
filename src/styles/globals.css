@@ -15,7 +15,7 @@
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
     --muted: 25 20% 85%;
-    --muted-foreground: 240 3.8% 46.1%;
+    --muted-foreground: 240 4% 35%; /* #56565d: >=4.5:1 on brand-bg #dcd6d1 and accent #d4cec9 */
     --accent: 22 23% 82%;
     --accent-foreground: 240 5.9% 10%;
     --destructive: 0 84.2% 60.2%;
