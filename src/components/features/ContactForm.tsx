@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useForm, ControllerRenderProps, ControllerFieldState } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import {
   FormControl,
@@ -15,17 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select } from "@/components/ui/select";
-
-const formSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Invalid email address"),
-  phone: z.string().optional(),
-  company: z.string().optional(),
-  service: z.enum(["consulting", "training", "both", "other"]),
-  message: z.string().min(10, "Message must be at least 10 characters"),
-});
-
-type FormData = z.infer<typeof formSchema>;
+import { contactSchema, type ContactFormData as FormData } from "@/lib/contact-schema";
 
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -33,7 +22,7 @@ export function ContactForm() {
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   const form = useForm<FormData>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(contactSchema),
     defaultValues: {
       name: "",
       email: "",
@@ -41,6 +30,7 @@ export function ContactForm() {
       company: "",
       service: "consulting",
       message: "",
+      website: "",
     },
   });
 
@@ -180,6 +170,12 @@ export function ContactForm() {
             </FormItem>
           )}
         />
+
+        {/* Honeypot: hidden from people and screen readers; bots tend to fill it. */}
+        <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
+          <label htmlFor="website">Website</label>
+          <input id="website" type="text" tabIndex={-1} autoComplete="off" {...form.register("website")} />
+        </div>
 
         <Button type="submit" disabled={isSubmitting} className="w-full">
           {isSubmitting ? "Sending..." : "Send Message"}

@@ -1,93 +1,101 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
-import { z } from "zod";
+import { contactSchema } from "@/lib/contact-schema";
+import { escapeHtml } from "@/lib/escape-html";
+import { rateLimit } from "@/lib/rate-limit";
 
-const resend = new Resend(process.env.RESEND_API_KEY || "dummy_key_for_build");
+const FALLBACK_EMAIL = "contact@processimpact.io";
+const MAX_BODY_BYTES = 20_000;
+const RATE_LIMIT = 5; // submissions
+const RATE_WINDOW_MS = 10 * 60 * 1000; // per 10 minutes, per IP
 
-const contactSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Invalid email address"),
-  phone: z.string().optional(),
-  company: z.string().optional(),
-  service: z.enum(["consulting", "training", "both", "other"]),
-  message: z.string().min(10, "Message must be at least 10 characters"),
-});
+const GENERIC_ERROR = `Something went wrong. Please try again or email us at ${FALLBACK_EMAIL}.`;
+
+function clientIp(request: Request): string {
+  const forwarded = request.headers.get("x-forwarded-for");
+  if (forwarded) return forwarded.split(",")[0].trim();
+  return request.headers.get("x-real-ip") ?? "unknown";
+}
 
 export async function POST(request: Request) {
+  if (!rateLimit(clientIp(request), RATE_LIMIT, RATE_WINDOW_MS)) {
+    return NextResponse.json(
+      { error: `Too many messages. Please wait a few minutes or email us at ${FALLBACK_EMAIL}.` },
+      { status: 429 }
+    );
+  }
+
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    console.error("Contact form: RESEND_API_KEY is not configured");
+    return NextResponse.json({ error: GENERIC_ERROR }, { status: 503 });
+  }
+
+  let body: unknown;
   try {
-    // Log environment variable status for debugging
-    console.log("Environment check:", {
-      hasResendKey: !!process.env.RESEND_API_KEY,
-      contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL,
-    });
-
-    // Check if Resend API key is configured
-    if (!process.env.RESEND_API_KEY || process.env.RESEND_API_KEY === "dummy_key_for_build") {
-      console.error("RESEND_API_KEY is not configured");
-      return NextResponse.json(
-        {
-          error: "Email service is not configured. Please contact us directly at contact@processimpact.io",
-          details: "RESEND_API_KEY environment variable is missing or invalid"
-        },
-        { status: 503 }
-      );
+    const raw = await request.text();
+    if (raw.length > MAX_BODY_BYTES) {
+      return NextResponse.json({ error: "Message is too long." }, { status: 413 });
     }
+    body = JSON.parse(raw);
+  } catch {
+    return NextResponse.json({ error: "Invalid request." }, { status: 400 });
+  }
 
-    const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "contact@processimpact.io";
-    const fromEmail = process.env.RESEND_FROM_EMAIL || "contact@processimpact.io";
+  const parsed = contactSchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: "Please check the form and try again.", fields: parsed.error.issues.map((i) => i.path.join(".")) },
+      { status: 400 }
+    );
+  }
 
-    const body = await request.json();
-    const validatedData = contactSchema.parse(body);
+  const data = parsed.data;
 
-    const { data, error } = await resend.emails.send({
-      from: `Process Impact <${fromEmail}>`,
-      to: contactEmail,
-      replyTo: validatedData.email,
-      subject: `New Contact Form Submission - ${validatedData.service}`,
-      html: `
-        <h2>New Contact Form Submission</h2>
-        <p><strong>Name:</strong> ${validatedData.name}</p>
-        <p><strong>Email:</strong> ${validatedData.email}</p>
-        <p><strong>Phone:</strong> ${validatedData.phone || "Not provided"}</p>
-        <p><strong>Company:</strong> ${validatedData.company || "Not provided"}</p>
-        <p><strong>Service Interest:</strong> ${validatedData.service}</p>
-        <p><strong>Message:</strong></p>
-        <p>${validatedData.message.replace(/\n/g, '<br>')}</p>
-      `,
+  // Honeypot filled: pretend success so bots don't learn to adapt.
+  if (data.website) {
+    return NextResponse.json({ success: true });
+  }
+
+  const to = process.env.NEXT_PUBLIC_CONTACT_EMAIL || FALLBACK_EMAIL;
+  const from = process.env.RESEND_FROM_EMAIL || FALLBACK_EMAIL;
+
+  const fields: [string, string][] = [
+    ["Name", data.name],
+    ["Email", data.email],
+    ["Phone", data.phone || "Not provided"],
+    ["Company", data.company || "Not provided"],
+    ["Service interest", data.service],
+  ];
+
+  const text = [...fields.map(([k, v]) => `${k}: ${v}`), "", "Message:", data.message].join("\n");
+  const html = [
+    "<h2>New Contact Form Submission</h2>",
+    ...fields.map(([k, v]) => `<p><strong>${k}:</strong> ${escapeHtml(v)}</p>`),
+    "<p><strong>Message:</strong></p>",
+    `<p>${escapeHtml(data.message).replace(/\n/g, "<br>")}</p>`,
+  ].join("\n");
+
+  try {
+    const resend = new Resend(apiKey);
+    const { error } = await resend.emails.send({
+      from: `Process Impact <${from}>`,
+      to,
+      replyTo: data.email,
+      // Strip CR/LF so user input can't affect the subject line.
+      subject: `New Contact Form Submission - ${data.service}`.replace(/[\r\n]/g, " "),
+      text,
+      html,
     });
 
     if (error) {
-      console.error("Resend API error:", {
-        message: error.message,
-        name: error.name,
-        error: error
-      });
-      return NextResponse.json(
-        {
-          error: "Failed to send email. Please try again or contact us directly at contact@processimpact.io",
-          details: error.message || "Unknown error from email service"
-        },
-        { status: 500 }
-      );
+      console.error("Contact form: Resend error", error.name, error.message);
+      return NextResponse.json({ error: GENERIC_ERROR }, { status: 502 });
     }
 
-    return NextResponse.json({ success: true, data });
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      return NextResponse.json(
-        { error: "Invalid form data", details: error.issues },
-        { status: 400 }
-      );
-    }
-
-    console.error("Contact form error:", error);
-    const errorMessage = error instanceof Error ? error.message : "Unknown error";
-    return NextResponse.json(
-      {
-        error: "Internal server error",
-        details: errorMessage
-      },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: true });
+  } catch (err) {
+    console.error("Contact form: unexpected error", err instanceof Error ? err.message : err);
+    return NextResponse.json({ error: GENERIC_ERROR }, { status: 500 });
   }
 }
