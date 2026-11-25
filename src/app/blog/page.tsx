@@ -1,7 +1,6 @@
-export const metadata = {
-  title: "Blog - Process Impact",
-  description: "Insights on ICS security, offensive techniques, and industry trends.",
-};
+import { pageMetadata } from "@/lib/site";
+
+export const metadata = pageMetadata("/blog", "Blog - Process Impact", "Insights on ICS security, offensive techniques, and industry trends.");
 
 export default function BlogPage() {
   return (

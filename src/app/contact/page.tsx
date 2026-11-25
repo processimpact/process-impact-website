@@ -1,11 +1,9 @@
 import Link from "next/link";
 import { ContactForm } from "@/components/features/ContactForm";
-import { Mail, Phone } from "lucide-react";
+import { Mail } from "lucide-react";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata = {
-  title: "Contact Us - Process Impact",
-  description: "Get in touch with Process Impact for ICS security consulting and training inquiries.",
-};
+export const metadata = pageMetadata("/contact", "Contact Us - Process Impact", "Get in touch with Process Impact for ICS security consulting and training inquiries.");
 
 export default function ContactPage() {
   return (
@@ -13,7 +11,7 @@ export default function ContactPage() {
       <div className="mx-auto max-w-2xl text-center mb-12">
         <h1 className="text-4xl font-bold">Contact Us</h1>
         <p className="mt-4 text-lg text-muted-foreground">
-          Ready to assess your industrial control system security, or train your team? Let's talk.
+          Ready to assess your industrial control system security, or train your team? Let&apos;s talk.
         </p>
       </div>
 
@@ -26,10 +24,6 @@ export default function ContactPage() {
             <a href="mailto:contact@processimpact.io" className="hover:underline">
               contact@processimpact.io
             </a>
-          </div>
-          <div className="flex items-center gap-2">
-            <Phone className="h-5 w-5 text-primary" />
-            <span className="text-muted-foreground">(Available upon request)</span>
           </div>
         </div>
       </div>

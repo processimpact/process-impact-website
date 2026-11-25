@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy - Process Impact",
-  description: "How Process Impact LLC collects, uses, and protects personal information submitted through processimpact.io.",
-};
+export const metadata: Metadata = pageMetadata("/privacy", "Privacy Policy - Process Impact", "How Process Impact LLC collects, uses, and protects personal information submitted through processimpact.io.");
 
 const CONTACT_EMAIL = "contact@processimpact.io";
 

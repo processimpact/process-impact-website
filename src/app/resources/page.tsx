@@ -1,7 +1,6 @@
-export const metadata = {
-  title: "Resources - Process Impact",
-  description: "Insights on ICS/OT security, offensive techniques, threat intelligence, and industry trends.",
-};
+import { pageMetadata } from "@/lib/site";
+
+export const metadata = pageMetadata("/resources", "Resources - Process Impact", "Insights on ICS/OT security, offensive techniques, threat intelligence, and industry trends.");
 
 export default function ResourcesPage() {
   return (

@@ -1,7 +1,6 @@
-export const metadata = {
-  title: "Process Impact Academy - Process Impact",
-  description: "LOTL security training courses for offensive security professionals.",
-};
+import { pageMetadata } from "@/lib/site";
+
+export const metadata = pageMetadata("/academy", "Process Impact Academy - Process Impact", "LOTL security training courses for offensive security professionals.");
 
 export default function AcademyPage() {
   return (

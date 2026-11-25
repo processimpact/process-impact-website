@@ -1,11 +1,9 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { HardDrive, ArrowLeft } from "lucide-react";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata = {
-  title: "ICS/OT Device Penetration Testing - Process Impact",
-  description: "Bench testing of industrial devices and protocols to identify hardware, firmware, and software vulnerabilities in ICS/OT equipment.",
-};
+export const metadata = pageMetadata("/services/device-penetration-testing", "ICS/OT Device Penetration Testing - Process Impact", "Bench testing of industrial devices and protocols to identify hardware, firmware, and software vulnerabilities in ICS/OT equipment.");
 
 export default function DevicePenetrationTestingPage() {
   return (

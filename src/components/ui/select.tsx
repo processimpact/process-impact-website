@@ -28,7 +28,7 @@ const SelectItem = React.forwardRef<
   HTMLOptionElement,
   React.OptionHTMLAttributes<HTMLOptionElement>
 >(({ className, ...props }, ref) => (
-  <option ref={ref} {...props} />
+  <option ref={ref} className={className} {...props} />
 ))
 SelectItem.displayName = "SelectItem"
 
