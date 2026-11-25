@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Shield, Target, FileSearch, HardDrive, ShieldHalf } from "lucide-react";
+import { Target, HardDrive, ShieldHalf } from "lucide-react";
 
 export function ServicesPreview() {
   const services = [

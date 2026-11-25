@@ -18,7 +18,7 @@
     --muted-foreground: 240 4% 35%; /* #56565d: >=4.5:1 on brand-bg #dcd6d1 and accent #d4cec9 */
     --accent: 22 23% 82%;
     --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 72% 42%; /* ~#b81e1e: >=4.5:1 on white for error text */
     --destructive-foreground: 0 0% 98%;
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;

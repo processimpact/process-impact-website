@@ -48,6 +48,10 @@ export function ContactForm() {
         body: JSON.stringify(data),
       });
 
+      if (response.status === 429) {
+        throw new Error("Too many messages from your connection. Please wait a few minutes and try again, or email us at contact@processimpact.io.");
+      }
+
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({
           error: `Server error: ${response.status}`
@@ -80,7 +84,7 @@ export function ContactForm() {
           control={form.control}
           name="name"
           render={({ field, fieldState }: { field: ControllerRenderProps<FormData, "name">; fieldState: ControllerFieldState }) => (
-            <FormItem>
+            <FormItem invalid={!!fieldState.error}>
               <FormLabel>Name *</FormLabel>
               <FormControl>
                 <Input placeholder="John Doe" {...field} />
@@ -94,7 +98,7 @@ export function ContactForm() {
           control={form.control}
           name="email"
           render={({ field, fieldState }: { field: ControllerRenderProps<FormData, "email">; fieldState: ControllerFieldState }) => (
-            <FormItem>
+            <FormItem invalid={!!fieldState.error}>
               <FormLabel>Email *</FormLabel>
               <FormControl>
                 <Input type="email" placeholder="john@example.com" {...field} />
@@ -109,7 +113,7 @@ export function ContactForm() {
             control={form.control}
             name="phone"
             render={({ field, fieldState }: { field: ControllerRenderProps<FormData, "phone">; fieldState: ControllerFieldState }) => (
-              <FormItem>
+              <FormItem invalid={!!fieldState.error}>
                 <FormLabel>Phone</FormLabel>
                 <FormControl>
                   <Input placeholder="(555) 123-4567" {...field} />
@@ -123,7 +127,7 @@ export function ContactForm() {
             control={form.control}
             name="company"
             render={({ field, fieldState }: { field: ControllerRenderProps<FormData, "company">; fieldState: ControllerFieldState }) => (
-              <FormItem>
+              <FormItem invalid={!!fieldState.error}>
                 <FormLabel>Company</FormLabel>
                 <FormControl>
                   <Input placeholder="Acme Corp" {...field} />
@@ -138,7 +142,7 @@ export function ContactForm() {
           control={form.control}
           name="service"
           render={({ field, fieldState }: { field: ControllerRenderProps<FormData, "service">; fieldState: ControllerFieldState }) => (
-            <FormItem>
+            <FormItem invalid={!!fieldState.error}>
               <FormLabel>Service Interest *</FormLabel>
               <FormControl>
                 <Select {...field}>
@@ -157,7 +161,7 @@ export function ContactForm() {
           control={form.control}
           name="message"
           render={({ field, fieldState }: { field: ControllerRenderProps<FormData, "message">; fieldState: ControllerFieldState }) => (
-            <FormItem>
+            <FormItem invalid={!!fieldState.error}>
               <FormLabel>Message *</FormLabel>
               <FormControl>
                 <Textarea
@@ -182,13 +186,13 @@ export function ContactForm() {
         </Button>
 
         {submitStatus === "success" && (
-          <div className="rounded-md bg-green-50 p-4 text-sm text-green-800">
-            Thank you! We'll get back to you soon.
+          <div role="status" className="rounded-md bg-green-50 p-4 text-sm text-green-800">
+            Thank you! We&apos;ll get back to you soon.
           </div>
         )}
 
         {submitStatus === "error" && (
-          <div className="rounded-md bg-red-50 p-4 text-sm text-red-800">
+          <div role="alert" className="rounded-md bg-red-50 p-4 text-sm text-red-800">
             <p className="font-semibold">Error submitting form</p>
             <p className="mt-1">{errorMessage || "Something went wrong. Please try again or email us directly."}</p>
           </div>

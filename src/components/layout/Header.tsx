@@ -50,8 +50,11 @@ export function Header() {
 
         <button
           className="md:hidden"
+          type="button"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle menu"
+          aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={mobileMenuOpen}
+          aria-controls="mobile-menu"
         >
           {mobileMenuOpen ? (
             <X className="h-6 w-6" />
@@ -62,7 +65,7 @@ export function Header() {
       </nav>
 
       {mobileMenuOpen && (
-        <div className="md:hidden border-t">
+        <div id="mobile-menu" className="md:hidden border-t">
           <div className="container space-y-1 py-4">
             {navigation.map((item) => (
               <Link

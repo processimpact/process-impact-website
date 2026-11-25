@@ -1,11 +1,9 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ShieldHalf, ArrowLeft } from "lucide-react";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata = {
-  title: "ICS/OT Purple Team Exercises - Process Impact",
-  description: "Realistic adversary simulation to test and tune your organization's ICS/OT detection and response capabilities.",
-};
+export const metadata = pageMetadata("/services/purple-team-exercises", "ICS/OT Purple Team Exercises - Process Impact", "Realistic adversary simulation to test and tune your organization's ICS/OT detection and response capabilities.");
 
 export default function PurpleTeamExercisesPage() {
   return (

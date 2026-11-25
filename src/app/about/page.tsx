@@ -1,7 +1,6 @@
-export const metadata = {
-  title: "About - Process Impact",
-  description: "Learn about Process Impact's mission and team.",
-};
+import { pageMetadata } from "@/lib/site";
+
+export const metadata = pageMetadata("/about", "About - Process Impact", "Learn about Process Impact's mission and team.");
 
 export default function AboutPage() {
   return (

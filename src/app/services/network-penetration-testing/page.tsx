@@ -1,11 +1,9 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Target, ArrowLeft } from "lucide-react";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata = {
-  title: "ICS/OT Network Penetration Testing - Process Impact",
-  description: "Adversary-informed, cyber-physical focused network penetration testing tailored for industrial control systems and critical infrastructure.",
-};
+export const metadata = pageMetadata("/services/network-penetration-testing", "ICS/OT Network Penetration Testing - Process Impact", "Adversary-informed, cyber-physical focused network penetration testing tailored for industrial control systems and critical infrastructure.");
 
 export default function NetworkPenetrationTestingPage() {
   return (

@@ -1,11 +1,9 @@
 import Link from "next/link";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Target, HardDrive, ShieldHalf, GraduationCap } from "lucide-react";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata = {
-  title: "Services - Process Impact",
-  description: "Expert ICS/OT network penetration testing, device pentesting, purple team exercises, and LOTL security training for critical infrastructure.",
-};
+export const metadata = pageMetadata("/services", "Services - Process Impact", "Expert ICS/OT network penetration testing, device pentesting, purple team exercises, and LOTL security training for critical infrastructure.");
 
 const services = [
   {
