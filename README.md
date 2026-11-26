@@ -6,7 +6,7 @@ Official website for Process Impact LLC - ICS Offensive Security & Training
 
 - **Framework:** Next.js 14+ (App Router)
 - **Language:** TypeScript
-- **Styling:** Tailwind CSS
+- **Styling:** Tailwind CSS 4
 - **UI Components:** shadcn/ui
 - **Email:** Resend
 - **Hosting:** Vercel
@@ -83,7 +83,7 @@ process-impact-website/
 ├── public/                    # Static assets
 ├── .env.local                # Local environment variables (not committed)
 ├── .env.example              # Environment variables template
-└── tailwind.config.ts        # Tailwind configuration with brand colors
+└── postcss.config.js         # Tailwind CSS v4 via @tailwindcss/postcss (theme lives in src/styles/globals.css)
 ```
 
 ## Available Scripts
@@ -174,5 +174,5 @@ For questions about this project, contact: contact@processimpact.io
 - The contact form requires a Resend API key to function
 - All pages are server-side rendered for optimal SEO
 - The site uses Next.js 14+ App Router with React Server Components
-- Tailwind CSS is configured with custom brand colors
+- Tailwind CSS is configured with custom brand colors in the `@theme` block of `src/styles/globals.css`
 - shadcn/ui components are copied into the project (not installed as dependencies)

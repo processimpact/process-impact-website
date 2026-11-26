@@ -176,7 +176,7 @@ export function ContactForm() {
         />
 
         {/* Honeypot: hidden from people and screen readers; bots tend to fill it. */}
-        <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
+        <div aria-hidden="true" className="absolute left-[-9999px] h-px w-px overflow-hidden">
           <label htmlFor="website">Website</label>
           <input id="website" type="text" tabIndex={-1} autoComplete="off" {...form.register("website")} />
         </div>
